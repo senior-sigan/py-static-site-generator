@@ -32,12 +32,14 @@ def new_page(
     src: Path,
     root_dir_path: Path,
     dest_dir_path: Path,
+    idx: int,
 ) -> Page:
     rel_path = src.relative_to(root_dir_path)
     target_path = dest_dir_path / rel_path
     url = '/' + str(rel_path.with_suffix(''))
     target_path = target_path.with_suffix('.html')
     return Page(
+        idx=idx,
         url=url,
         path=src,
         target_path=target_path,

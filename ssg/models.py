@@ -1,6 +1,6 @@
 from datetime import datetime
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from typing_extensions import TypedDict
 
@@ -25,6 +25,11 @@ class Layouts(TypedDict, total=False):
     src: str
 
 
+class Graph(TypedDict, total=False):
+    dst: str
+    data: Dict[str, Any]
+
+
 class Site(TypedDict, total=False):
     title: str
     url: str
@@ -34,6 +39,7 @@ class Site(TypedDict, total=False):
     sass: Sass
     layouts: Layouts
     assets: Assets
+    graph: Graph
 
     pages: List['Page']
 
@@ -70,6 +76,7 @@ class Metadata(TypedDict, total=False):
 
 
 class Page(TypedDict, total=False):
+    idx: int
     url: str  # link to the page
     path: Path  # absolute path to the source file
     target_path: Path  # absolute path where to save the rendered page
@@ -80,3 +87,5 @@ class Page(TypedDict, total=False):
     date: Optional[datetime]
     date_iso8601: Optional[str]  # 2006-01-02T15:04:05+07:00
     title: Optional[str]
+    links: List[str]
+    backlinks: List['Page']
