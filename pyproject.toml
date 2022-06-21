@@ -1,0 +1,51 @@
+[tool.poetry]
+name = "py_site_generator"
+version = "0.1.0"
+description = "Static site generator in python with wikilinks and backlinks support"
+authors = ["Ilya Siganov <ilya.blan4@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/senior-sigan/py-static-site-generator"
+keywords = ["static-site-generator", "digital-garden", "markdown", "wikilinks"]
+classifiers = [
+    'Development Status :: 4 - Beta',
+    'Environment :: Console',
+    'License :: OSI Approved :: MIT License',
+    'Programming Language :: Python',
+    'Programming Language :: Python :: 3 :: Only',
+    'Topic :: Documentation',
+    'Topic :: Utilities'
+]
+packages = [
+    { include = "ssg" }
+]
+
+[tool.poetry.urls]
+"Bug Tracker" = "https://github.com/senior-sigan/py-static-site-generator/issues"
+
+[tool.poetry.scripts]
+ssg = "ssg.__main__:main"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Markdown = "^3.3.7"
+pymdown-extensions = "^9.5"
+tqdm = "^4.64.0"
+python-frontmatter = "^1.0.0"
+Jinja2 = "^3.1.2"
+libsass = "^0.21.0"
+toml = "^0.10.2"
+typing-extensions = "^4.2.0"
+
+[tool.poetry.dev-dependencies]
+wemake-python-styleguide = "^0.16.1"
+autopep8 = "^1.6.0"
+isort = "^5.10.1"
+mypy = "^0.961"
+types-Markdown = "^3.3.28"
+types-toml = "^0.10.7"
+pytest = "^7.1.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
