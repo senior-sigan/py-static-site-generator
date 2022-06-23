@@ -6,17 +6,16 @@ from ssg.assets_pipeline import copy_assets
 from ssg.backlinks import inject_backlinks
 from ssg.graph import compile_graph
 from ssg.html_pipeline import HtmlRenderer
-from ssg.markdown_pipeline import compile_markdown, new_page
-from ssg.models import Site
+from ssg.markdown_pipeline import compile_markdown
+from ssg.models import Site, Page
 from ssg.scripts_pipeline import copy_scripts
 from ssg.styles_pipeline import compile_sass
 
 
 def compile_content(site: Site):
     src = Path(site['markdown']['src'])
-    dst = Path(site['markdown']['dst'])
     site['pages'] = [
-        new_page(entry, src, dst, idx)
+        Page(idx=idx, path=entry)
         for idx, entry in enumerate(sorted(src.rglob('*.md')))
     ]
     for page in tqdm(site['pages']):

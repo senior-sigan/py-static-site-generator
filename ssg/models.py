@@ -83,6 +83,7 @@ class Metadata(TypedDict, total=False):
     date: str
     title: str
     layout: str
+    permalink: str
 
 
 class Page(TypedDict, total=False):

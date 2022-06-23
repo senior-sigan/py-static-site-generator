@@ -30,19 +30,11 @@ def inject_date_iso8601(page: Page) -> None:
 
 def new_page(
     src: Path,
-    root_dir_path: Path,
-    dest_dir_path: Path,
     idx: int,
 ) -> Page:
-    rel_path = src.relative_to(root_dir_path)
-    target_path = dest_dir_path / rel_path
-    url = '/' + str(rel_path.with_suffix(''))
-    target_path = target_path.with_suffix('.html')
     return Page(
         idx=idx,
-        url=url,
         path=src,
-        target_path=target_path,
     )
 
 
@@ -73,11 +65,27 @@ def inject_layout(page: Page) -> None:
     page['layout'] = layout
 
 
+def inject_target_path(page: Page, site: Site) -> None:
+    permlink = page['metadata'].get('permalink')
+    if permlink is not None:
+        page['url'] = permlink
+    else:
+        rel_path = page['path'].relative_to(site['markdown']['src'])
+        page['url'] = '/' + str(rel_path.with_suffix(''))
+
+    if page['url'] == '/':
+        page['url'] = '/index'
+
+    target_path = site['markdown']['dst'] + page['url']
+    page['target_path'] = Path(target_path).with_suffix('.html')
+
+
 def compile_markdown(page: Page, site: Site):
     inject_raw_markdown(page)
     inject_title(page)
     inject_date(page, site)
     inject_date_iso8601(page)
+    inject_target_path(page, site)
     inject_html(page)
     inject_internal_links(page)
     inject_layout(page)
