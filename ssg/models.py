@@ -89,3 +89,4 @@ class Page(TypedDict, total=False):
     title: Optional[str]
     links: List[str]
     backlinks: List['Page']
+    linked_pages: List['Page']

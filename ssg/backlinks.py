@@ -47,6 +47,12 @@ def inject_backlinks(site: Site) -> None:
             else:
                 backlinks[link].add(page['url'])
 
+            if pages_dict.get(link) is None:
+                logger.warning(
+                    f"Page {page['path']} has link to non-existing document {link}")
+            else:
+                page.setdefault('linked_pages', []).append(pages_dict[link])
+
     for page in site['pages']:
         links = backlinks.get(page['url'], set())
         page['backlinks'] = [pages_dict[link] for link in links]
