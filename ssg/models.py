@@ -11,28 +11,21 @@ class Sass(TypedDict, total=False):
     dst: str
 
 
-class Markdown(TypedDict, total=False):
-    src: str
-    dst: str
-
-
-class Assets(TypedDict, total=False):
-    src: str
-    dst: str
-
-
-class Scripts(TypedDict, total=False):
-    src: str
-    dst: str
-
-
-class Layouts(TypedDict, total=False):
-    src: str
-
-
 class Graph(TypedDict, total=False):
     dst: str
     data: Dict[str, Any]
+
+
+class Copy(TypedDict, total=False):
+    src: str
+    dst: str
+
+
+class Markdown(TypedDict, total=False):
+    src: str
+    dst: str
+    layouts: str
+    plugins: List[str]
 
 
 class Site(TypedDict, total=False):
@@ -40,12 +33,11 @@ class Site(TypedDict, total=False):
     url: str
     date_format: str
 
-    markdown: Markdown
+    copy: List[Copy]
+    md: Markdown
     sass: Sass
-    layouts: Layouts
-    assets: Assets
-    scripts: Assets
     graph: Graph
+    plugins: List[str]
 
     pages: List['Page']
 
@@ -55,26 +47,25 @@ def default_site() -> Site:
         title='Site',
         url='/',
         date_format='%Y-%m-%d %H:%M:%S %z',
-        markdown=Markdown(
+        md=Markdown(
             src='content',
             dst='build',
+            layouts='theme/layouts',
+            plugins=[
+                'ssg.plugins.frontmatter_parser',
+                'ssg.plugins.inject_title',
+                'ssg.plugins.inject_date',
+                'ssg.plugins.inject_date_iso8601',
+                'ssg.plugins.inject_layout',
+                'ssg.plugins.permalink',
+                'ssg.plugins.set_target_path',
+                'ssg.plugins.markdown_to_html',
+            ],
         ),
-        assets=Assets(
-            src='content/assets',
-            dst='build/assets',
-        ),
-        scripts=Scripts(
-            src='theme/scripts',
-            dst='build/scripts',
-        ),
-        layouts=Layouts(
-            src='theme/layouts',
-        ),
-        sass=Sass(
-            src='theme/styles',
-            style='compressed',
-            dst='build/app.css',
-        ),
+        plugins=[
+            'ssg.plugins.parse_markdown',
+            'ssg.plugins.render_html',
+        ],
     )
 
 

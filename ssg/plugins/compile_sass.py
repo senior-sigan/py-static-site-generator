@@ -2,10 +2,8 @@ from pathlib import Path
 
 import sass
 
-from ssg.models import Site
 
-
-def compile_sass(site: Site):
+def apply(site):
     src = Path(site['sass']['src']) / 'app.scss'
     dst = Path(site['sass']['dst'])
     css = sass.compile(

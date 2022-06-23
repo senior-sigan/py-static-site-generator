@@ -2,7 +2,6 @@ from dataclasses import asdict, dataclass
 import json
 from pathlib import Path
 from typing import List
-from ssg.models import Site
 
 
 @dataclass
@@ -24,7 +23,7 @@ class LinksGraph:
     nodes: List[Node]
 
 
-def build_graph(site: Site):
+def build_graph(site) -> None:
     graph = LinksGraph(edges=[], nodes=[])
     for page in site['pages']:
         graph.nodes.append(Node(
@@ -41,12 +40,12 @@ def build_graph(site: Site):
     site['graph']['data'] = asdict(graph)
 
 
-def save_graph(site: Site):
+def save_graph(site) -> None:
     path = Path(site['graph']['dst']).absolute()
     path.parent.mkdir(exist_ok=True)
     path.write_text(json.dumps(site['graph']['data']))
 
 
-def compile_graph(site: Site):
+def apply(site) -> None:
     build_graph(site)
     save_graph(site)
