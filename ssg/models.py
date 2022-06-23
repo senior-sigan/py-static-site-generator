@@ -21,6 +21,11 @@ class Assets(TypedDict, total=False):
     dst: str
 
 
+class Scripts(TypedDict, total=False):
+    src: str
+    dst: str
+
+
 class Layouts(TypedDict, total=False):
     src: str
 
@@ -39,6 +44,7 @@ class Site(TypedDict, total=False):
     sass: Sass
     layouts: Layouts
     assets: Assets
+    scripts: Assets
     graph: Graph
 
     pages: List['Page']
@@ -56,6 +62,10 @@ def default_site() -> Site:
         assets=Assets(
             src='content/assets',
             dst='build/assets',
+        ),
+        scripts=Scripts(
+            src='theme/scripts',
+            dst='build/scripts',
         ),
         layouts=Layouts(
             src='theme/layouts',

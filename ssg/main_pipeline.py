@@ -8,6 +8,7 @@ from ssg.graph import compile_graph
 from ssg.html_pipeline import HtmlRenderer
 from ssg.markdown_pipeline import compile_markdown, new_page
 from ssg.models import Site
+from ssg.scripts_pipeline import copy_scripts
 from ssg.styles_pipeline import compile_sass
 
 
@@ -33,3 +34,4 @@ def compile_all(site: Site):
     compile_graph(site)
     compile_sass(site)
     copy_assets(site)
+    copy_scripts(site)
