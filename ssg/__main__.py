@@ -2,7 +2,7 @@ import argparse
 
 import toml
 
-from ssg.models import Site, default_site
+from ssg.models import default_site
 from ssg.pipeline import run
 
 
@@ -19,7 +19,7 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-def site_from_config(config_path: str) -> Site:
+def site_from_config(config_path: str):
     config = toml.load(config_path)
     site = default_site()
     site.update(config)

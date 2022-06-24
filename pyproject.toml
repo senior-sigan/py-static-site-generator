@@ -35,7 +35,6 @@ python-frontmatter = "^1.0.0"
 Jinja2 = "^3.1.2"
 libsass = "^0.21.0"
 toml = "^0.10.2"
-typing-extensions = "^4.2.0"
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.16.1"

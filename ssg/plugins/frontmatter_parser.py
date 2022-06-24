@@ -1,8 +1,7 @@
-from ssg.models import Site, Page
 import frontmatter
 
 
-def apply(site: Site, page: Page):
+def apply(site, page):
     text = page['path'].read_text()
     metadata, content = frontmatter.parse(text)
     page['metadata'] = metadata

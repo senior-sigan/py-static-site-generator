@@ -1,18 +1,17 @@
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from ssg.models import Page, Site
 from tqdm import tqdm
 
 
 class HtmlRenderer:
-    def __init__(self, site: Site) -> None:
+    def __init__(self, site) -> None:
         self.jinja_env = Environment(
             loader=FileSystemLoader(site['md']['layouts']),
             autoescape=select_autoescape()
         )
         self.site = site
 
-    def render(self, page: Page):
+    def render(self, page):
         template = self.jinja_env.get_template(page['layout'])
         full_html = template.render(
             site=self.site,
