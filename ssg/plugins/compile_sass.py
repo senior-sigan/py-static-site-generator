@@ -4,13 +4,14 @@ import sass
 
 
 def apply(site):
-    src = Path(site['sass']['src']) / 'app.scss'
-    dst = Path(site['sass']['dst'])
-    css = sass.compile(
-        filename=str(src.absolute()),
-        output_style=site['sass']['style'],
-        include_paths=str(src.parent.absolute()),
-    )
+    for sass_cfg in site['sass']:
+        src = Path(sass_cfg['src']) / 'app.scss'
+        dst = Path(sass_cfg['dst'])
+        css = sass.compile(
+            filename=str(src.absolute()),
+            output_style=sass_cfg['style'],
+            include_paths=str(src.parent.absolute()),
+        )
 
-    dst.parent.mkdir(exist_ok=True)
-    dst.write_text(css)
+        dst.parent.mkdir(exist_ok=True)
+        dst.write_text(css)

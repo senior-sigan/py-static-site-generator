@@ -3,7 +3,7 @@ import argparse
 import toml
 
 from ssg.models import Site, default_site
-import pipeline
+from ssg.pipeline import run
 
 
 def parse_args() -> argparse.Namespace:
@@ -29,7 +29,7 @@ def site_from_config(config_path: str) -> Site:
 def main() -> None:
     args = parse_args()
     site = site_from_config(args.config)
-    pipeline.run(site)
+    run(site)
 
 
 if __name__ == '__main__':
