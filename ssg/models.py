@@ -63,7 +63,7 @@ def default_site():
     return {
         'title': 'Site',
         'url': '/',
-        'date_format':'%Y-%m-%d %H:%M:%S %z',
+        'date_format': '%Y-%m-%d %H:%M:%S %z',
         'md': {
             'src': 'content',
             'dst': 'build',
@@ -76,6 +76,7 @@ def default_site():
                 'ssg.plugins.inject_layout',
                 'ssg.plugins.permalink',
                 'ssg.plugins.set_target_path',
+                'ssg.plugins.parse_tags',
                 'ssg.plugins.markdown_to_html',
             ],
         },
